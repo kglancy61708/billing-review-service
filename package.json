@@ -1,0 +1,20 @@
+{
+  "name": "billing-review-service",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monthly WM billing review: pulls NetSuite exports from Box, builds the review workbook, posts to Slack #ar",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "run-now": "node src/index.js --run-now",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "jsonwebtoken": "^9.0.3",
+    "node-cron": "^4.6.0"
+  }
+}
