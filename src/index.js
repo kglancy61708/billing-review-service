@@ -72,6 +72,14 @@ async function main() {
     catch (e) { log(`DRY RUN FAILED: ${e.message}`); }
   }
 
+  // RUN_ON_START=live posts to Slack and updates the history right now. Remove the variable afterwards or every restart will post again.
+  if (process.env.RUN_ON_START === 'live') {
+    log('RUN_ON_START=live: running a real review now (this posts to Slack)');
+    try { const r = await runAndReport(deps({ dryRun: false })); log(`LIVE RUN DONE: ${r.review.latest} vs ${r.review.prior} ${JSON.stringify(r.review.counts)} of ${r.review.total}`); }
+    catch (e) { log(`LIVE RUN FAILED: ${e.message}`); }
+    log('Reminder: delete the RUN_ON_START variable in Railway now.');
+  }
+
   let running = false;
   cron.schedule(SCHEDULE, async () => {
     if (running) return;
